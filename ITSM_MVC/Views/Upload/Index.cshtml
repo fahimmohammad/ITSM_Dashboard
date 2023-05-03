@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("Index", "Upload", FormMethod.Post, new { @class = "form-horizontal row-border", enctype = "multipart/form-data" }))
+        {
+            <div class="myGroup">
+                <div class="col-md-12">
+                    <div class="row">
+                        <label class="col-md-2 control-label">Choose File<span class="required">*</span></label>
+                        <div class="col-md-4">
+                            <input class="form-control" type="file" name="file">
+                        </div>
+                        <label class="col-md-2 control-label">Table Type<span class="required">*</span></label>
+                        <div class="col-md-4">
+                            <select name="tableType" class="form-control">
+                                <option value="">Select File Type</option>
+                                <option value="1">Gplex</option>
+                                <option value="2">OTRS</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <input type="submit" class="btn btn-primary pull-right">
+            </div>
+        }
+
+
+
+    </div>
+</div>
