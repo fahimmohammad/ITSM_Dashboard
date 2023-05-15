@@ -19,6 +19,7 @@ namespace ITSM_MVC.Controllers
         }
         public IActionResult Index()
         {
+         
             return View();
         }
 
@@ -107,33 +108,38 @@ namespace ITSM_MVC.Controllers
 
                         foreach (DataRow row in dt.Rows)
                         {
-                            OTRS otrs = new OTRS();
-                            otrs.ticket_number = row["Ticket Number"].ToString();
-                            otrs.age = row["Age"].ToString();
-                            otrs.createdDate = DateTime.Parse(row["Created"].ToString());
-                            otrs.closed = row["Closed"].ToString();
-                            otrs.firstLock = row["FirstLock"].ToString();
-                            otrs.firstResponse = row["FirstResponse"].ToString();
-                            otrs.state = row["State"].ToString();
-                            otrs.priority = row["Priority"].ToString();
-                            otrs.queue = row["Queue"].ToString();
-                            otrs.locks = row["Lock"].ToString();
-                            otrs.owner = row["Owner"].ToString();
-                            otrs.userFirstname = row["UserFirstname"].ToString();
-                            otrs.userLastname = row["UserLastname"].ToString();
-                            otrs.customerID = row["CustomerID"].ToString();
-                            otrs.customer_name = row["Customer Name"].ToString();
-                            otrs.from = row["From"].ToString();
-                            otrs.subject = row["Subject"].ToString();
-                            otrs.accountedTime = row["AccountedTime"].ToString();
-                            otrs.articleTree = row["ArticleTree"].ToString();
-                            otrs.solutionInMin = row["SolutionInMin"].ToString();
-                            otrs.solutionDiffInMin = row["SolutionDiffInMin"].ToString();
-                            otrs.firstResponseInMin = row["FirstResponseInMin"].ToString();
-                            otrs.firstResponseDiffInMin = row["FirstResponseDiffInMin"].ToString();
+                            string ticketNumber = row["Ticket Number"].ToString();
+                            if (_dbContext.OTRS.Where(a=>a.ticket_number == ticketNumber).Count() == 0 ) {
+                                OTRS otrs = new OTRS();
+                                otrs.ticket_number = ticketNumber;
+                                otrs.age = row["Age"].ToString();
+                                otrs.createdDate = DateTime.Parse(row["Created"].ToString());
+                                otrs.closed = row["Closed"].ToString();
+                                otrs.firstLock = row["FirstLock"].ToString();
+                                otrs.firstResponse = row["FirstResponse"].ToString();
+                                otrs.state = row["State"].ToString();
+                                otrs.priority = row["Priority"].ToString();
+                                otrs.queue = row["Queue"].ToString();
+                                otrs.locks = row["Lock"].ToString();
+                                otrs.owner = row["Owner"].ToString();
+                                otrs.userFirstname = row["UserFirstname"].ToString();
+                                otrs.userLastname = row["UserLastname"].ToString();
+                                otrs.customerID = row["CustomerID"].ToString();
+                                otrs.customer_name = row["Customer Name"].ToString();
+                                otrs.from = row["From"].ToString();
+                                otrs.subject = row["Subject"].ToString();
+                                otrs.accountedTime = row["AccountedTime"].ToString();
+                                otrs.articleTree = row["ArticleTree"].ToString();
+                                otrs.solutionInMin = row["SolutionInMin"].ToString();
+                                otrs.solutionDiffInMin = row["SolutionDiffInMin"].ToString();
+                                otrs.firstResponseInMin = row["FirstResponseInMin"].ToString();
+                                otrs.firstResponseDiffInMin = row["FirstResponseDiffInMin"].ToString();
 
-                            _dbContext.OTRS.Add(otrs);
-                            _dbContext.SaveChanges();
+                                _dbContext.OTRS.Add(otrs);
+                                _dbContext.SaveChanges();
+                            }
+
+                            
                         }
                     }
                 }

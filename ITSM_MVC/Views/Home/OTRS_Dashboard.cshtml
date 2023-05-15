@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("OTRS_Dashboard", "Home", FormMethod.Post, new { @class = "form-horizontal row-border", enctype = "multipart/form-data" }))
+        {
+            <fieldset>
+                <legend>Search Panel</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Form Date </label>
+                            <div class="col-md-6">
+                                @Html.TextBox("fromDate", "{0:dd/MM/yyyy}", new { @type = "date",@id="fromDate", @class = "form-control" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Issue Type</label>
+                            <div class="col-md-6">
+                                <Select name="issueType" class="form-control">
+                                </Select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> To Date </label>
+                            <div class="col-md-6">
+                                @Html.TextBox("toDate", "{0:dd/MM/yyyy}", new { @type = "date",@id="toDate", @class = "form-control" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Status </label>
+                            <div class="col-md-6">
+                                <Select name="status" class="form-control">
+                                    <option value="open">Open</option>
+                                    <option value="closed">Closed</option>
+                                    <option value="new">New</option>
+                                    <option value="unsuccess">Unsuccess</option>
+                                </Select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-info pull-left" type="submit">View</button>
+                </div>
+            </fieldset>
+        }
+        <div class="row">
+        @if (ViewBag.Data.Count > 0)
+        {
+            var num = 0;
+            <div class="table-responsive">
+                    <table class="table table-bordered table-condensed table-striped" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Ticket Date</th>
+                        <th>Ticket No</th>
+                        <th>Issuer Name</th>
+                        <th>Forwarded By</th>
+                        <th>Issue Detail</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < @ViewBag.Data.Count; i++)
+                    {
+                        num = num + 1;
+                        <tr>
+                            <td>@num</td>
+                            <td>@ViewBag.Data[i].createdDate</td>
+                            <td>@ViewBag.Data[i].ticket_number</td>
+                            <td>@ViewBag.Data[i].customerID</td>
+                            <td>@ViewBag.Data[i].userFirstname</td>
+                            <td>@ViewBag.Data[i].subject</td>
+                            <td>@ViewBag.Data[i].state</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        }
+        </div>
+    </div>
+</div>
+<style>
+    fieldset {
+        border: 1px solid #ddd !important;
+        margin: 0;
+        xmin-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        padding-left: 10px !important;
+    }
+
+    legend {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 35%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px 5px 5px 10px;
+        background-color: #ffffff;
+    }
+</style>
